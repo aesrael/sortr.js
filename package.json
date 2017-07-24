@@ -1,0 +1,19 @@
+{
+  "name": "sortr",
+  "version": "1.0.0",
+  "description": "an app that sorts files in downloads folder",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/israelAdura/Sortr.git"
+  },
+  "author": "icode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/israelAdura/Sortr/issues"
+  },
+  "homepage": "https://github.com/israelAdura/Sortr#readme"
+}
