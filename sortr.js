@@ -12,7 +12,7 @@ module.exports = function (app) {
 
 
             //sort mp3 files
-        sort(['mp3','ogg','wav'],'music')
+        sort(['mp3','ogg','wav'],'music');
         //sort video files
         sort(['mp4','avi','flv','vob','mpg','mpeg'],'videos')
         //sort books
@@ -29,9 +29,11 @@ module.exports = function (app) {
 
          // remove files
          function unlink(ext){
+            if (file.indexOf('.' + ext) != -1)  {
                     fs.unlink(downloads + '/' + file, function (err) {
                     console.log('faulty file removed')
-                     })
+                        })
+                    }
                 }
 
          // sort files
