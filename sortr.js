@@ -1,6 +1,5 @@
 var os = require('os');
 var fs = require('fs');
-var express = require('express');
 
 module.exports = function (app) {
     var downloads = os.homedir() + '/' + 'Downloads';
@@ -11,12 +10,14 @@ module.exports = function (app) {
         files.forEach(function (file) {
 
 
-            //sort mp3 files
+        //sort mp3 files
         sort(['mp3','ogg','wav'],'music');
         //sort video files
         sort(['mp4','avi','flv','vob','mpg','mpeg'],'videos')
         //sort books
         sort(['pdf','epub'],'books')
+	//sort zip,gzip and rar files
+ 	sort(['zip','gzip','rar'],'Zip')
         //sort apps
         sort(['dmg','exe'],'apps')
         //sort pictures
