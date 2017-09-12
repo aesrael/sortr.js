@@ -2,7 +2,6 @@ var fs = require('fs');
 var os = require('os');
 var express = require('express');
 
-//var sortr=require('./sortr');
 var app = express();
 
 
@@ -10,12 +9,25 @@ var app = express();
 app.set('port', process.env.PORT || 8080);
 
 //sortr code
-var downloads = os.homedir() + '/' + 'Downloads';
-var music = os.homedir() + '/' + 'Music';
-var desktop = os.homedir() + '/' + 'desktop';
-var video = os.homedir() + '/' + 'Videos';
-var images = os.homedir() + '/' + 'Pictures';
+var dirs=['Downloads','Music','Desktop','Videos','Pictures','Documents'];
 
+//check if 'new' folders exist in each parent dir, else create 
+for(var i=0; i<dirs.length; i++){
+    if (!fs.existsSync(os.homedir() + '/' + dirs[i]  + '/' + 'new')){
+        fs.mkdirSync(os.homedir() + '/' + dirs[i]  + '/' + 'new');
+    }
+}
+
+ // fs.mkdirSync(os.homedir() + '/' + dirs[i]  + '/' + 'new');
+ //folder to loop through
+ var downloads = os.homedir() + '/' + 'Downloads';
+
+ //folders to sort to
+ var music = os.homedir() + '/' + 'Music' + '/' + 'new';
+ var desktop = os.homedir() + '/' + 'Desktop' + '/' + 'new';
+ var video = os.homedir() + '/' + 'Videos' + '/' + 'new';
+ var pictures = os.homedir() + '/' + 'Pictures' + '/' + 'new';
+ var documents = os.homedir() + '/' + 'Documents' + '/' + 'new';
 
 fs.readdir(downloads, function (err, files) {
     if (err) throw err;
@@ -25,19 +37,19 @@ fs.readdir(downloads, function (err, files) {
 
 
         //sort mp3 files
-        sort(['mp3', 'ogg', 'wav'], 'music');
+        sort(['mp3', 'ogg', 'wav'], music);
         //sort video files
-        sort(['mp4', 'avi', 'flv', 'vob', 'mpg', 'mpeg'], 'videos')
+        sort(['mp4', 'avi', 'flv', 'vob', 'mpg', 'mpeg'], video);
         //sort books
-        sort(['pdf', 'epub'], 'books')
+        sort(['pdf', 'epub'], documents);
         //sort zip,gzip and rar files
-        sort(['zip', 'gzip', 'rar'], 'Zip')
+        sort(['zip', 'gzip', 'rar'], documents);
         //sort apps
-        sort(['dmg', 'exe'], 'apps')
+        sort(['dmg', 'exe'], documents);
         //sort pictures
-        sort(['png', 'jpeg', 'jpg'], 'pictures')
+        sort(['png', 'jpeg', 'jpg'], pictures);
         //sort documents
-        sort(['doc', 'ppt'], 'pictures')
+        sort(['doc', 'ppt'], documents);
 
         //Remove unfinished downloads
         unlink('.crdownload');
@@ -52,27 +64,22 @@ fs.readdir(downloads, function (err, files) {
         }
 
         // sort files
-        function sort(extension, mime) {
+        function sort(extension, dir) {
             extension.map(function (ext) {
 
 
                 if (file.indexOf('.' + ext) != -1) {
                     console.log(file + ' ' + 'found');
 
-                    //create  directories
-                    if (!fs.exists(downloads + '/' + mime, function (err) { })) {
-                        fs.mkdir(downloads + '/' + mime, function (err) {
-                            console.log(mime + 'folder created');
-                            //rename paths
-                            var oldpath = downloads + '/' + file;
-                            var newpath = downloads + '/' + mime + '/' + file;
+                    //rename paths
+                    var oldpath = downloads + '/' + file;
+                    var newpath = dir + '/' + file;
 
-                            fs.rename(oldpath, newpath, function (err) {
-                                if (err) throw err;
+                    fs.rename(oldpath, newpath, function (err) {
+                        if (err) throw err;
 
-                            });
-                        });
-                    }
+                    });
+
                 }
             });
         }

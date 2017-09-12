@@ -12,6 +12,11 @@
   },
   "author": "icode",
   "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3",
+    "formidable": "^1.1.1"
+  },
   "bugs": {
     "url": "https://github.com/israelAdura/Sortr/issues"
   },
