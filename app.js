@@ -1,12 +1,5 @@
 var fs = require('fs');
 var os = require('os');
-var express = require('express');
-
-var app = express();
-
-
-//set port
-app.set('port', process.env.PORT || 8080);
 
 //sortr code
 var dirs=['Downloads','Music','Desktop','Videos','Pictures','Documents'];
@@ -20,7 +13,7 @@ for(var i=0; i<dirs.length; i++){
 
  // fs.mkdirSync(os.homedir() + '/' + dirs[i]  + '/' + 'new');
  //folder to loop through
- var downloads = os.homedir() + '/' + 'Downloads';
+ var downloads = os.homedir() + '/' + 'Downloads/test';
 
  //folders to sort to
  var music = os.homedir() + '/' + 'Music' + '/' + 'new';
@@ -84,11 +77,6 @@ fs.readdir(downloads, function (err, files) {
             });
         }
     });
-});
-
-//listen
-app.listen(app.get('port'), function () {
-    console.log('listening on' + app.get('port'))
 });
 
 
